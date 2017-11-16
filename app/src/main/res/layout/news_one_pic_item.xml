@@ -5,27 +5,33 @@
     <ImageView
         android:id="@+id/news_image"
         android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
         android:src="@drawable/beauty"
-        android:layout_alignParentRight="true"/>
+        android:scaleType="centerCrop"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/news_margin_top"/>
 
     <TextView
         android:id="@+id/news_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+        android:textSize="@dimen/news_title_text_size"
         android:layout_toLeftOf="@id/news_image"
-        android:layout_margin="10dp"/>
+        android:layout_alignParentLeft="true"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/news_margin_top"/>
+    <View android:id="@+id/bottom_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/news_margin_bottom"
+        android:layout_alignParentBottom="true"/>
     <TextView
         android:id="@+id/news_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        android:layout_toLeftOf="@id/news_image"
-        android:layout_margin="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/news_title"/>
-
+        android:text="2017-11-15"
+        android:textSize="@dimen/news_time_text_size"
+        android:textColor="@color/gray"
+        android:layout_above="@id/bottom_view"/>
 </RelativeLayout>

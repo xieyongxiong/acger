@@ -3,8 +3,12 @@ package com.thg.acger;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +21,8 @@ import android.view.MenuItem;
 
 import com.thg.acger.news.NewsFragment;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FragmentManager fragmentManager;
@@ -27,15 +33,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -45,10 +42,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.container, new NewsFragment());
-        transaction.commit();
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        MyAdapter adapter = new MyAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager, true);
+        tabLayout.setTabsFromPagerAdapter(adapter);
+
     }
 
     @Override
@@ -106,5 +106,35 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public class MyAdapter extends FragmentStatePagerAdapter {
+        private ArrayList<String> titleList = new ArrayList<String>() {{
+            add("附近");
+            add("全部");
+        }};
+        private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>() {{
+            add(new NewsFragment());
+            add(new NewsFragment());
+        }};
+
+        public MyAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return titleList.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titleList.get(position);
+        }
     }
 }
