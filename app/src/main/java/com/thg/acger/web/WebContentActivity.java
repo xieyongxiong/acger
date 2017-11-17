@@ -1,14 +1,15 @@
-package com.thg.acger.news;
+package com.thg.acger.web;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.thg.acger.R;
 
-public class NewsContentActivity extends AppCompatActivity {
+public class WebContentActivity extends AppCompatActivity {
 
     private WebView newsConetent;
     private String contentUrl;
@@ -27,6 +28,13 @@ public class NewsContentActivity extends AppCompatActivity {
                 view.loadUrl(url);
                 return super.shouldOverrideUrlLoading(view, url);
             }
+
         });
+//        newsConetent.setWebChromeClient(new WebChromeClient(){
+//            @Override
+//            public void onProgressChanged(WebView view, int newProgress) {
+//                super.onProgressChanged(view, newProgress);
+//            }
+//        });
     }
 }

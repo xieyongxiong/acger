@@ -55,7 +55,7 @@ public class NewsFragment extends Fragment {
     }
 
     public void initNetworkData() {
-        NetworkUtil.get().setUrl("http://www.baidu.com").execute(new Callback() {
+        NetworkUtil.get().setUrl("http://120.78.202.104/NewsApi/getAllNews").execute(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.i("wuni","fail");
@@ -64,96 +64,8 @@ public class NewsFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
-                String ss = "{\n" +
-                        "    \"code\": 200,\n" +
-                        "    \"status\": \"success\",\n" +
-                        "    \"data\": [\n" +
-                        "        {\n" +
-                        "            \"title\": \"我们还通过系统属性来适应屏幕的横屏和竖屏，然后确定画横的\",\n" +
-                        "            \"image_url\": [\"https://cdn.pixabay.com/photo/2017/11/12/19/22/high-speed-2943518__340.jpg\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"http://www.baidu.com\",\n" +
-                        "            \"type\": \"0\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"我们还通过系统属性来适应屏幕的横屏和竖屏，然后确定画横的\",\n" +
-                        "            \"image_url\": [\"https://cdn.pixabay.com/photo/2017/11/10/12/53/face-2936245__340.jpg\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"2\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"8536\",\n" +
-                        "            \"image_url\": [\"a\",\"b\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"1\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"我们还通过系统属性来适应屏幕的横屏和竖屏，然后确定画横的\",\n" +
-                        "            \"image_url\": [\"https://cdn.pixabay.com/photo/2017/11/12/19/22/high-speed-2943518__340.jpg\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"0\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"我们还通过系统属性来适应屏幕的横屏和\",\n" +
-                        "            \"image_url\": [\"a\",\"b\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"1\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"我们还通过系统属性\",\n" +
-                        "            \"image_url\": [\"a\",\"b\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"0\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"我们还通过系统属性来适应屏幕的横屏和竖屏，然后确定画横的\",\n" +
-                        "            \"image_url\": [\"a\",\"b\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"1\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"8536\",\n" +
-                        "            \"image_url\": [\"a\",\"b\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"2\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"8536\",\n" +
-                        "            \"image_url\": [\"a\",\"b\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"0\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        },\n" +
-                        "        {\n" +
-                        "            \"title\": \"8536\",\n" +
-                        "            \"image_url\": [\"a\",\"b\"],\n" +
-                        "            \"time\": \"2017-10-30\",\n" +
-                        "            \"url\": \"a\",\n" +
-                        "            \"type\": \"1\",\n" +
-                        "            \"other\": \"other\"\n" +
-                        "        }\n" +
-                        "    ],\n" +
-                        "    \"currentPage\": 1,\n" +
-                        "    \"totalPages\": 26\n" +
-                        "}";
                 NewsModel newsModel = (NewsModel) JsonUtil.getInstance().
-                        decodeJsonObject(ss, NewsModel.class);
+                        decodeJsonObject(response.body().string(), NewsModel.class);
                 if (response.code() == 200 && newsModel != null && newsModel.getCode() == 200) {
                     for (int i = 0; i < newsModel.getData().size(); i++) {
                         NewsModel.DataBean dataBean = newsModel.getData().get(i);

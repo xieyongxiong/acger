@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.thg.acger.news.NewsFragment;
+import com.thg.acger.website.WebsiteFragment;
 
 import java.util.ArrayList;
 
@@ -112,8 +113,12 @@ public class MainActivity extends AppCompatActivity
         private ArrayList<String> titleList = new ArrayList<String>() {{
             add("附近");
             add("全部");
+            add("附近");
+            add("全部");
         }};
         private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>() {{
+            add(new NewsFragment());
+            add(new WebsiteFragment());
             add(new NewsFragment());
             add(new NewsFragment());
         }};

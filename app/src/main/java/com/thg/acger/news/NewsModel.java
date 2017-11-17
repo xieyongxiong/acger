@@ -11,15 +11,11 @@ public class NewsModel {
     /**
      * code : 200
      * status : success
-     * data : [{"title":"8536","image_url":["a","b"],"time":"2017-10-30","url":"a","type":"13273","other":"other"}]
-     * currentPage : 1
-     * totalPages : 26
+     * data : [{"id":"2","title":"话题：哪部10月新番目前让你眼前一亮","source":"腾讯动漫","url":"http://comic.qq.com/a/20171017/040420.htm","type":"0","create_time":"2017-11-17 00:00:00","other":"","image_url1":"http://inews.gtimg.com/newsapp_match/0/2171972472/0","image_url2":"","image_url3":""}]
      */
 
     private int code;
     private String status;
-    private int currentPage;
-    private int totalPages;
     private List<DataBean> data;
 
     public int getCode() {
@@ -38,22 +34,6 @@ public class NewsModel {
         this.status = status;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
-    }
-
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
-    }
-
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(int totalPages) {
-        this.totalPages = totalPages;
-    }
-
     public List<DataBean> getData() {
         return data;
     }
@@ -64,20 +44,36 @@ public class NewsModel {
 
     public static class DataBean {
         /**
-         * title : 8536
-         * image_url : ["a","b"]
-         * time : 2017-10-30
-         * url : a
-         * type : 13273
-         * other : other
+         * id : 2
+         * title : 话题：哪部10月新番目前让你眼前一亮
+         * source : 腾讯动漫
+         * url : http://comic.qq.com/a/20171017/040420.htm
+         * type : 0
+         * create_time : 2017-11-17 00:00:00
+         * other :
+         * image_url1 : http://inews.gtimg.com/newsapp_match/0/2171972472/0
+         * image_url2 :
+         * image_url3 :
          */
 
+        private String id;
         private String title;
-        private String time;
+        private String source;
         private String url;
         private String type;
+        private String create_time;
         private String other;
-        private List<String> image_url;
+        private String image_url1;
+        private String image_url2;
+        private String image_url3;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public String getTitle() {
             return title;
@@ -87,12 +83,12 @@ public class NewsModel {
             this.title = title;
         }
 
-        public String getTime() {
-            return time;
+        public String getSource() {
+            return source;
         }
 
-        public void setTime(String time) {
-            this.time = time;
+        public void setSource(String source) {
+            this.source = source;
         }
 
         public String getUrl() {
@@ -111,6 +107,14 @@ public class NewsModel {
             this.type = type;
         }
 
+        public String getCreate_time() {
+            return create_time;
+        }
+
+        public void setCreate_time(String create_time) {
+            this.create_time = create_time;
+        }
+
         public String getOther() {
             return other;
         }
@@ -119,12 +123,28 @@ public class NewsModel {
             this.other = other;
         }
 
-        public List<String> getImage_url() {
-            return image_url;
+        public String getImage_url1() {
+            return image_url1;
         }
 
-        public void setImage_url(List<String> image_url) {
-            this.image_url = image_url;
+        public void setImage_url1(String image_url1) {
+            this.image_url1 = image_url1;
+        }
+
+        public String getImage_url2() {
+            return image_url2;
+        }
+
+        public void setImage_url2(String image_url2) {
+            this.image_url2 = image_url2;
+        }
+
+        public String getImage_url3() {
+            return image_url3;
+        }
+
+        public void setImage_url3(String image_url3) {
+            this.image_url3 = image_url3;
         }
     }
 }

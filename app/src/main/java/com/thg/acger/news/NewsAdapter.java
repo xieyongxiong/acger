@@ -2,9 +2,7 @@ package com.thg.acger.news;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.thg.acger.R;
+import com.thg.acger.web.WebContentActivity;
 
 import java.util.List;
 
@@ -62,17 +61,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         switch (Integer.parseInt(newsData.get(position).getType())){
             case NewsItemType.ONE_PIC:
                 ((OnePicViewHolder) holder).newsTitle.setText(newsData.get(position).getTitle());
-                loadImageNet(newsData.get(position).getImage_url().get(0), ((OnePicViewHolder) holder).newsImage);
+                loadImageNet(newsData.get(position).getImage_url1(), ((OnePicViewHolder) holder).newsImage);
                 break;
             case NewsItemType.THREE_PIC:
                 ((ThreePicViewHolder) holder).newsTitle.setText(newsData.get(position).getTitle());
-//                loadImageNet(newsData.get(position).getImage_url().get(0), ((ThreePicViewHolder) holder).newsImage1);
-//                loadImageNet(newsData.get(position).getImage_url().get(1), ((ThreePicViewHolder) holder).newsImage1);
-//                loadImageNet(newsData.get(position).getImage_url().get(2), ((ThreePicViewHolder) holder).newsImage1);
+                loadImageNet(newsData.get(position).getImage_url1(), ((ThreePicViewHolder) holder).newsImage1);
+                loadImageNet(newsData.get(position).getImage_url2(), ((ThreePicViewHolder) holder).newsImage2);
+                loadImageNet(newsData.get(position).getImage_url3(), ((ThreePicViewHolder) holder).newsImage3);
                 break;
             case NewsItemType.BIG_PIC:
                 ((BigPicViewHolder) holder).newsTitle.setText(newsData.get(position).getTitle());
-                loadImageNet(newsData.get(position).getImage_url().get(0), ((BigPicViewHolder) holder).newsImage);
+                loadImageNet(newsData.get(position).getImage_url1(), ((BigPicViewHolder) holder).newsImage);
                 break;
         }
 
@@ -107,13 +106,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, NewsContentActivity.class);
+            Intent intent = new Intent(context, WebContentActivity.class);
             intent.putExtra("url", newsData.get(getAdapterPosition()).getUrl());
             context.startActivity(intent);
         }
     }
 
-    class BigPicViewHolder extends RecyclerView.ViewHolder {
+    class BigPicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView newsTitle;
         TextView newsTime;
@@ -124,10 +123,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             newsTitle = itemView.findViewById(R.id.news_title);
             newsTime = itemView.findViewById(R.id.news_time);
             newsImage = itemView.findViewById(R.id.news_image);
+            itemView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, WebContentActivity.class);
+            intent.putExtra("url", newsData.get(getAdapterPosition()).getUrl());
+            context.startActivity(intent);
         }
     }
 
-    class ThreePicViewHolder extends RecyclerView.ViewHolder {
+    class ThreePicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView newsTitle;
         TextView newsTime;
@@ -142,6 +148,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             newsImage1 = itemView.findViewById(R.id.news_image1);
             newsImage2 = itemView.findViewById(R.id.news_image2);
             newsImage3 = itemView.findViewById(R.id.news_image3);
+            itemView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, WebContentActivity.class);
+            intent.putExtra("url", newsData.get(getAdapterPosition()).getUrl());
+            context.startActivity(intent);
         }
     }
 
