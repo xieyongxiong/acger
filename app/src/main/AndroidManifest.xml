@@ -23,7 +23,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".web.WebContentActivity" />
-        <activity android:name=".website.WebsiteActivity"></activity>
+        <activity android:name=".website.WebsiteActivity" />
+        <activity
+            android:name=".comic.ComicActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

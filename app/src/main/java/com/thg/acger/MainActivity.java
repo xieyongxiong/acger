@@ -19,6 +19,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.thg.acger.network.JsonUtil;
+import com.thg.acger.news.ComicFragment;
+import com.thg.acger.news.MusicFragment;
 import com.thg.acger.news.NewsFragment;
 import com.thg.acger.website.WebsiteFragment;
 
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        JsonUtil.getInstance();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -111,15 +115,15 @@ public class MainActivity extends AppCompatActivity
 
     public class MyAdapter extends FragmentStatePagerAdapter {
         private ArrayList<String> titleList = new ArrayList<String>() {{
-            add("附近");
-            add("全部");
-            add("附近");
+            add("资讯");
+            add("漫画");
+            add("音乐");
             add("全部");
         }};
         private ArrayList<Fragment> fragmentList = new ArrayList<Fragment>() {{
             add(new NewsFragment());
-            add(new WebsiteFragment());
-            add(new NewsFragment());
+            add(new ComicFragment());
+            add(new MusicFragment());
             add(new NewsFragment());
         }};
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.thg.acger.R;
+import com.thg.acger.comic.ComicActivity;
 import com.thg.acger.web.WebContentActivity;
 
 import java.util.List;
@@ -24,10 +25,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private String tag = "thg";
     private List<NewsModel.DataBean> newsData;
+    private String type = "news";
 
-    public NewsAdapter(Context context, List<NewsModel.DataBean> newsData) {
+    public NewsAdapter(Context context, List<NewsModel.DataBean> newsData, String type) {
         this.context = context;
         this.newsData = newsData;
+        this.type = type;
     }
 
     @Override
@@ -106,7 +109,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, WebContentActivity.class);
+            Intent intent = null;
+            if(type.equals("comic")){
+                intent = new Intent(context, ComicActivity.class);
+            }else{
+                intent = new Intent(context, WebContentActivity.class);
+            }
             intent.putExtra("url", newsData.get(getAdapterPosition()).getUrl());
             context.startActivity(intent);
         }
@@ -127,7 +135,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, WebContentActivity.class);
+            Intent intent = null;
+            if(type.equals("comic")){
+                intent = new Intent(context, ComicActivity.class);
+            }else{
+                intent = new Intent(context, WebContentActivity.class);
+            }
             intent.putExtra("url", newsData.get(getAdapterPosition()).getUrl());
             context.startActivity(intent);
         }
@@ -152,7 +165,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, WebContentActivity.class);
+            Intent intent = null;
+            if(type.equals("comic")){
+                intent = new Intent(context, ComicActivity.class);
+            }else{
+                intent = new Intent(context, WebContentActivity.class);
+            }
             intent.putExtra("url", newsData.get(getAdapterPosition()).getUrl());
             context.startActivity(intent);
         }

@@ -1,22 +1,22 @@
-package com.thg.acger.web;
+package com.thg.acger.comic;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.webkit.WebChromeClient;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.thg.acger.R;
 
-public class WebContentActivity extends AppCompatActivity {
+public class ComicActivity extends AppCompatActivity {
 
     private WebView newsConetent;
     private String contentUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_content);
+        setContentView(R.layout.activity_comic);
         newsConetent = (WebView) findViewById(R.id.news_content_container);
         Intent intent = getIntent();
         contentUrl = intent.getStringExtra("url");
@@ -25,11 +25,12 @@ public class WebContentActivity extends AppCompatActivity {
         newsConetent.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return super.shouldOverrideUrlLoading(view, url);
+                view.loadUrl(contentUrl);
+                return true;
             }
 
         });
+
 //        newsConetent.setWebChromeClient(new WebChromeClient(){
 //            @Override
 //            public void onProgressChanged(WebView view, int newProgress) {

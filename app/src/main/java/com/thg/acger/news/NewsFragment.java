@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.thg.acger.R;
 import com.thg.acger.network.JsonUtil;
 import com.thg.acger.network.NetResultCode;
@@ -30,9 +34,13 @@ import okhttp3.Response;
  */
 public class NewsFragment extends Fragment {
 
+    private SmartRefreshLayout refreshLayout;
     private RecyclerView newsList;
     private List<NewsModel.DataBean> newsData;
     private NewsAdapter newsAdapter;
+    private String url= "http://120.78.202.104/NewsApi/getAllNews";
+    protected String type = "news";
+    private int page = 1;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -45,17 +53,43 @@ public class NewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
         newsList = view.findViewById(R.id.news_list);
+        refreshLayout = view.findViewById(R.id.news_refreshLayout);
         newsData = new ArrayList();
-        newsAdapter = new NewsAdapter(getActivity(), newsData);
+        setType();
+        newsAdapter = new NewsAdapter(getActivity(), newsData, type);
         newsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         newsList.setAdapter(newsAdapter);
         newsList.addItemDecoration(new MyDecoration(getActivity(),MyDecoration.VERTICAL_LIST));
-        initNetworkData();
+        loadNetData();
+        initEvent();
         return view;
     }
 
-    public void initNetworkData() {
-        NetworkUtil.get().setUrl("http://120.78.202.104/NewsApi/getAllNews").execute(new Callback() {
+    public void initEvent(){
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                newsData.clear();
+                page = 1;
+                loadNetData();
+            }
+        });
+
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+//                loadRankListData();
+                page ++;
+                loadNetData();
+            }
+        });
+    }
+
+    public void initNetworkData(String url) {
+        NetworkUtil.post()
+                .setUrl(url)
+                .addParams("page",page+"")
+                .execute(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.i("wuni","fail");
@@ -66,24 +100,26 @@ public class NewsFragment extends Fragment {
 
                 NewsModel newsModel = (NewsModel) JsonUtil.getInstance().
                         decodeJsonObject(response.body().string(), NewsModel.class);
-                if (response.code() == 200 && newsModel != null && newsModel.getCode() == 200) {
+                if (response.code() == 200 && newsModel.getData() != null && newsModel.getCode() == 200) {
                     for (int i = 0; i < newsModel.getData().size(); i++) {
                         NewsModel.DataBean dataBean = newsModel.getData().get(i);
                         newsData.add(dataBean);
                     }
                     Log.i("wuni",newsData.size()+"size");
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            newsAdapter.notifyDataSetChanged();
-                        }
-                    });
 
 //                    Message message = new Message();
 //                    message.what = NetResultCode.SUCCESS;
 //                    uiHandler.sendMessage(message);
                 }
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        newsAdapter.notifyDataSetChanged();
+                        refreshLayout.finishRefresh();
+                        refreshLayout.finishLoadmore();
+                    }
+                });
             }
         });
     }
@@ -98,5 +134,10 @@ public class NewsFragment extends Fragment {
 //            }
 //        }
 //    };
+    protected void loadNetData(){
+        initNetworkData(url);
+    }
+    protected void setType(){
+    }
 
 }

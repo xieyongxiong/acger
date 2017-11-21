@@ -28,6 +28,7 @@ public class JsonUtil {
 
     public Object decodeJsonObject(String json, Class c) {
         Object o = new Object();
+        Log.i("wuni","json"+json);
         try {
             o = gson.fromJson(json, c);
         } catch (JsonSyntaxException ex) {
