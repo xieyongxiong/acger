@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
     <ImageView
         android:id="@+id/type_item_image"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_camera"
+        android:layout_marginRight="5dp"
+        android:layout_centerVertical="true"
+        android:padding="5dp"/>
     <TextView
         android:id="@+id/type_item_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/type_item_image"
+        android:layout_centerVertical="true"/>
     <TextView
         android:id="@+id/type_item_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
-</LinearLayout>
+        android:layout_alignParentRight="true"
+        android:text="进去看看"
+        android:textColor="@color/white"
+        android:background="@drawable/pic_content_button_background"
+        android:textSize="10dp"
+        android:padding="5dp"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

@@ -54,7 +54,8 @@ public class PiclistAdapter extends RecyclerView.Adapter {
         }else if(holder instanceof TypeItemHolder){
             ((TypeItemHolder) holder).typeTitle.setText(typeTitles[(position-1)/2]);
         }else if(holder instanceof TypeContentHolder){
-
+            ((TypeContentHolder) holder).picContent.setLayoutManager(new GridLayoutManager(context,2));
+            ((TypeContentHolder) holder).picContent.setAdapter(new PicContentItemAdapter(context));
         }
 
     }
@@ -68,7 +69,7 @@ public class PiclistAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (position == 0) {
             return ItemType.topType;
-        } else if (position % 2 == 0) {
+        } else if (position % 2 == 1) {
             return ItemType.typeItem;
         }else {
             return ItemType.typeContent;

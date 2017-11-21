@@ -9,4 +9,5 @@
     <dimen name="news_time_text_size">13sp</dimen>
     <dimen name="news_margin_top">10dp</dimen>
     <dimen name="news_margin_bottom">15dp</dimen>
+    <dimen name="pic_content_margin">14dp</dimen>
 </resources>
