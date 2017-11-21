@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.thg.acger.R;
-import com.thg.acger.comic.ComicActivity;
+import com.thg.acger.pic.ComicActivity;
 import com.thg.acger.web.WebContentActivity;
 
 import java.util.List;
